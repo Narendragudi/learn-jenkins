@@ -4,7 +4,9 @@ pipeline {
             label 'AGENT-1'
         }
     }
-
+    environment {
+        GREETING = 'Hello Jenkins'
+    }
       //build
 
     stages {
@@ -22,7 +24,10 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh """
+                  echo " here i wrote shell script"
+                  echo "$GREETING"
+                """
             }
        }
    }
@@ -32,10 +37,10 @@ pipeline {
             echo 'I will always say Helloagain!'
        }
        failure {
-            echo ''
+            echo 'this runs when pipeline is failed,used generally to send some alrets'
        }
        success {
-            echo ''
+            echo 'i will say hello when pipe line is success'
        }
    }
 }
